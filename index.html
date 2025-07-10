@@ -28,6 +28,12 @@
             margin-bottom: 20px;
             color: #333;
         }
+        .nickname-form, .question-container, .result {
+            display: none;
+        }
+        .nickname-form.show, .question-container.show, .result.show {
+            display: block;
+        }
         .question {
             font-size: 18px;
             margin-bottom: 20px;
@@ -51,52 +57,77 @@
         button:hover {
             background-color: #0056b3;
         }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            width: 80%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
         .progress {
             margin-top: 20px;
             font-size: 14px;
             color: #777;
         }
         .result {
-            display: none;
             font-size: 18px;
             color: #333;
-        }
-        .result.show {
-            display: block;
         }
     </style>
 </head>
 <body>
     <div class="quiz-container">
         <h1>Тест на самопознание</h1>
-        <div class="question" id="question"></div>
-        <div class="buttons">
-            <button onclick="answerQuestion(1)">Да</button>
-            <button onclick="answerQuestion(0)">Нет</button>
+        <h3>Что ты скрываешь даже от самого себя?</h3>
+        <div class="nickname-form" id="nicknameForm">
+            <input type="text" id="nicknameInput" placeholder="Введите ваш ник" required>
+            <button onclick="startQuiz()">Начать тест</button>
         </div>
-        <div class="progress" id="progress"></div>
+        <div class="question-container" id="questionContainer">
+            <div class="question" id="question"></div>
+            <div class="buttons">
+                <button onclick="answerQuestion(1)">Да</button>
+                <button onclick="answerQuestion(0)">Нет</button>
+            </div>
+            <div class="progress" id="progress"></div>
+        </div>
         <div class="result" id="result"></div>
     </div>
 
     <script>
         const questions = [
-            "Считаете ли вы, что у вас есть качества, которые выделяют вас среди других?",
-            "Ожидаете ли вы, что окружающие будут учитывать ваши потребности и желания?",
-            "Бывает ли, что вы полагаетесь на помощь других, чтобы достичь своих целей?",
-            "Трудно ли вам принимать замечания или критику от других?",
-            "Считаете ли вы, что ваши способности и успехи часто недооцениваются?",
-            "Замечаете ли вы, что иногда сравниваете себя с другими?",
-            "Бывает ли, что вам сложно глубоко понять чувства других людей?",
-            "Используете ли вы иногда свое влияние, чтобы добиться желаемого результата?"
+            "Верите ли вы, что вы особенный и уникальный?",
+            "Ожидаете ли вы особого отношения к себе? ",
+            "Часто ли вы используете других людей для достижения своих целей?",
+            "Испытываете ли вы трудности с критикой в свой адрес?",
+            "Склонны ли вы переоценивать свои достижения и способности?",
+            "Часто ли вы завидуете другим людям?",
+            "Испытываете ли вы трудности с эмпатией к другим людям?",
+            "Склонны ли вы манипулировать другими людьми для достижения своих целей?"
         ];
 
         let currentQuestionIndex = 0;
         let score = 0;
+        let nickname = '';
 
+        const nicknameForm = document.getElementById('nicknameForm');
+        const questionContainer = document.getElementById('questionContainer');
         const questionElement = document.getElementById('question');
         const progressElement = document.getElementById('progress');
         const resultElement = document.getElementById('result');
-        const buttons = document.querySelector('.buttons');
+        const nicknameInput = document.getElementById('nicknameInput');
+
+        function startQuiz() {
+            nickname = nicknameInput.value.trim();
+            if (!nickname) {
+                alert('Пожалуйста, введите ник.');
+                return;
+            }
+            nicknameForm.classList.remove('show');
+            questionContainer.classList.add('show');
+            displayQuestion();
+        }
 
         function displayQuestion() {
             if (currentQuestionIndex < questions.length) {
@@ -114,25 +145,40 @@
             displayQuestion();
         }
 
-        function showResult() {
-            questionElement.style.display = 'none';
-            buttons.style.display = 'none';
-            progressElement.style.display = 'none';
+        async function showResult() {
+            questionContainer.classList.remove('show');
             resultElement.classList.add('show');
 
             let resultText = '';
             if (score <= 2) {
-                resultText = `Ваш результат: ${score} из 8. Вы склонны к скромности и объективной самооценке, цените сотрудничество и открыты к обратной связи.`;
+                resultText = `Ваш результат, ${nickname}: ${score} из 8. Вы склонны к скромности и объективной самооценке, цените сотрудничество и открыты к обратной связи.`;
             } else if (score <= 5) {
-                resultText = `Ваш результат: ${score} из 8. Вы обладаете уверенностью в себе, но иногда можете быть чувствительны к мнению окружающих.`;
+                resultText = `Ваш результат, ${nickname}: ${score} из 8. Вы обладаете уверенностью в себе, но иногда можете быть чувствительны к мнению окружающих.`;
             } else {
-                resultText = `Ваш результат: ${score} из 8. Вы высоко цените свои качества и стремитесь к достижению своих целей, что делает вас целеустремленным человеком.`;
+                resultText = `Ваш результат, ${nickname}: ${score} из 8. Вы высоко цените свои качества и стремитесь к достижению своих целей, что делает вас целеустремленным человеком.`;
             }
             resultElement.textContent = resultText;
+
+            // Send data to Google Sheets
+            try {
+                const response = await fetch('https://script.google.com/macros/s/AKfycbz3IhL5I6maxu938LF8XR9tRTytr0XxB6IiS_lnzQopuML9r3MO3rEjkXvCWqDDwfku/exec', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ nickname, score })
+                });
+                const result = await response.json();
+                if (result.status !== 'success') {
+                    console.error('Ошибка при сохранении данных:', result.message);
+                }
+            } catch (error) {
+                console.error('Ошибка при отправке данных:', error);
+            }
         }
 
         // Initialize the quiz
-        displayQuestion();
+        nicknameForm.classList.add('show');
     </script>
 </body>
 </html>
