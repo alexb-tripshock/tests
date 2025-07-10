@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест на самопознание</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+        }
+        .quiz-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .question {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #555;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .progress {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #777;
+        }
+        .result {
+            display: none;
+            font-size: 18px;
+            color: #333;
+        }
+        .result.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Тест на самопознание</h1>
+        <div class="question" id="question"></div>
+        <div class="buttons">
+            <button onclick="answerQuestion(1)">Да</button>
+            <button onclick="answerQuestion(0)">Нет</button>
+        </div>
+        <div class="progress" id="progress"></div>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        const questions = [
+            "Считаете ли вы, что у вас есть качества, которые выделяют вас среди других?",
+            "Ожидаете ли вы, что окружающие будут учитывать ваши потребности и желания?",
+            "Бывает ли, что вы полагаетесь на помощь других, чтобы достичь своих целей?",
+            "Трудно ли вам принимать замечания или критику от других?",
+            "Считаете ли вы, что ваши способности и успехи часто недооцениваются?",
+            "Замечаете ли вы, что иногда сравниваете себя с другими?",
+            "Бывает ли, что вам сложно глубоко понять чувства других людей?",
+            "Используете ли вы иногда свое влияние, чтобы добиться желаемого результата?"
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        const questionElement = document.getElementById('question');
+        const progressElement = document.getElementById('progress');
+        const resultElement = document.getElementById('result');
+        const buttons = document.querySelector('.buttons');
+
+        function displayQuestion() {
+            if (currentQuestionIndex < questions.length) {
+                questionElement.textContent = questions[currentQuestionIndex];
+                progressElement.textContent = `Вопрос ${currentQuestionIndex + 1} из ${questions.length}`;
+                resultElement.classList.remove('show');
+            } else {
+                showResult();
+            }
+        }
+
+        function answerQuestion(answer) {
+            score += answer;
+            currentQuestionIndex++;
+            displayQuestion();
+        }
+
+        function showResult() {
+            questionElement.style.display = 'none';
+            buttons.style.display = 'none';
+            progressElement.style.display = 'none';
+            resultElement.classList.add('show');
+
+            let resultText = '';
+            if (score <= 2) {
+                resultText = `Ваш результат: ${score} из 8. Вы склонны к скромности и объективной самооценке, цените сотрудничество и открыты к обратной связи.`;
+            } else if (score <= 5) {
+                resultText = `Ваш результат: ${score} из 8. Вы обладаете уверенностью в себе, но иногда можете быть чувствительны к мнению окружающих.`;
+            } else {
+                resultText = `Ваш результат: ${score} из 8. Вы высоко цените свои качества и стремитесь к достижению своих целей, что делает вас целеустремленным человеком.`;
+            }
+            resultElement.textContent = resultText;
+        }
+
+        // Initialize the quiz
+        displayQuestion();
+    </script>
+</body>
+</html>
