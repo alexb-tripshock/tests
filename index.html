@@ -6,40 +6,66 @@
   <title>Психологический тест</title>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f4f6f8;
       margin: 0;
       padding: 0;
+      background: linear-gradient(to right, #74ebd5, #ACB6E5);
+      font-family: 'Segoe UI', sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
+      height: 100vh;
+      color: #2c3e50;
     }
 
-    header {
+    h1 {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    p {
+      font-size: 1.1rem;
+      text-align: center;
+      max-width: 500px;
+      margin-bottom: 40px;
+    }
+
+    .launch-button {
       background-color: #3498db;
       color: white;
-      padding: 20px;
-      width: 100%;
-      text-align: center;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      text-decoration: none;
     }
 
-    iframe {
-      border: none;
-      width: 100%;
-      max-width: 800px;
-      height: 1000px;
-      margin: 30px auto;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      border-radius: 8px;
+    .launch-button:hover {
+      background-color: #2980b9;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 20px;
+      font-size: 0.9rem;
+      color: #555;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Психологический тест</h1>
-  </header>
+  <h1>Пройдите психологический тест</h1>
+  <p>
+    Узнайте, насколько выражены у вас нарциссические тенденции. Ответьте на несколько вопросов —
+    результат может вас удивить!
+  </p>
+  <a class="launch-button" href="https://script.google.com/macros/s/AKfycbzFPzNSMduYJWyBlu4O8mnMAXqHho7MnS5MoVR8j0ioPOqg-7l3C08mHsf6lxQHY34owg/exec" target="_blank" rel="noopener noreferrer">
+    Начать тест
+  </a>
 
-  <iframe src="https://script.google.com/macros/s/AKfycbzFPzNSMduYJWyBlu4O8mnMAXqHho7MnS5MoVR8j0ioPOqg-7l3C08mHsf6lxQHY34owg/exec"></iframe>
+  <footer>© 2025 Sensei — Все права защищены</footer>
 </body>
 </html>
