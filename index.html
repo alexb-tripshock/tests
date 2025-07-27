@@ -13,16 +13,22 @@
     Узнайте что вы скрываете даже от самого себя? Ответьте на несколько вопросов —
     результат может вас удивить!
   </p>
-  <a class="launch-button" href="https://script.google.com/macros/s/AKfycbzlCDgVVAQmTGoAGw1mtPBNtkBilwOBRQkESqTrAxeadsiZS9rw1ED_yWMUiY9RpHeAaA/exec?page=form" target="_blank" rel="noopener noreferrer">
+  <a id="buttonOne" class="launch-button" href="#" target="_blank" rel="noopener noreferrer">
     На самооткрытие
   </a><br>
-   <a class="launch-button" href="https://script.google.com/macros/s/AKfycbzlCDgVVAQmTGoAGw1mtPBNtkBilwOBRQkESqTrAxeadsiZS9rw1ED_yWMUiY9RpHeAaA/exec?page=psycho" target="_blank" rel="noopener noreferrer">
+   <a id="buttonTwo" class="launch-button" href="#" target="_blank" rel="noopener noreferrer">
     На психо-устойчивость
   </a><br>
      <a class="launch-button" href="#">
     Тест на отношения
   </a><br><br></p>
-
+  <script>
+    // Store the URL in a variable
+    const formUrl = "https://script.google.com/macros/s/AKfycbzlCDgVVAQmTGoAGw1mtPBNtkBilwOBRQkESqTrAxeadsiZS9rw1ED_yWMUiY9RpHeAaA/exec?page=";
+    // Assign it to the href dynamically
+    buttonOne.href = formUrl + "form";
+    buttonTwo.href = formUrl + "psycho";
+  </script>
   <footer>© 2025 Sensei — Все права защищены</footer>
 </body>
 </html>
