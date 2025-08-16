@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <?!= include('stylesheet'); ?>
+</head>
+<body>
+  <h2>Введите Ваш ник из чата:</h2>
+  <input type="text" id="nickname" placeholder="Ваш ник чатланин..." />
+  
+  <h2>Город (необязательно):</h2>
+  <input type="text" id="city" placeholder="Введите Ваш город..." />
+
+  <h2>Время в чате (необязательно):</h2>
+  <input type="text" id="time" placeholder="Сколько вы уже в чате?" />
+
+  <div id="questions">
+  <p>1. Вы когда-либо замечали, что теряете время и не можете вспомнить, что делали в течение этого времени?</p>
+  <div>
+    <input type="radio" name="q1" id="q1_no" value="0">
+    <label for="q1_no">Нет</label>
+    <input type="radio" name="q1" id="q1_yes" value="1">
+    <label for="q1_yes">Да</label>
+  </div>
+  <p>2. Чувствовали ли вы когда-либо, что у вас есть разные "я", которые ведут себя по-разному в разных ситуациях?</p>
+  <div>
+    <input type="radio" name="q2" id="q2_no" value="0">
+    <label for="q2_no">Нет</label>
+    <input type="radio" name="q2" id="q2_yes" value="1">
+    <label for="q2_yes">Да</label>
+  </div>
+  <p>3. Вы часто ощущаете, что ваше тело или окружающий мир выглядят нереально?</p>
+  <div>
+    <input type="radio" name="q3" id="q3_no" value="0">
+    <label for="q3_no">Нет</label>
+    <input type="radio" name="q3" id="q3_yes" value="1">
+    <label for="q3_yes">Да</label>
+  </div>
+  <p>4. Были ли у вас случаи, когда вы не могли вспомнить важные личные события или информацию о себе?</p>
+  <div>
+    <input type="radio" name="q4" id="q4_no" value="0">
+    <label for="q4_no">Нет</label>
+    <input type="radio" name="q4" id="q4_yes" value="1">
+    <label for="q4_yes">Да</label>
+  </div>
+  <p>5.  Вы ощущаете, что иногда говорите или действуете так, как будто это делает кто-то другой?</p>
+  <div>
+    <input type="radio" name="q5" id="q5_no" value="0">
+    <label for="q5_no">Нет</label>
+    <input type="radio" name="q5" id="q5_yes" value="1">
+    <label for="q5_yes">Да</label>
+  </div>
+  <p>6. Чувствуете ли вы, что у вас есть "второй голос" в голове, который комментирует ваши действия или мысли?</p>
+  <div>
+    <input type="radio" name="q6" id="q6_no" value="0">
+    <label for="q6_no">Нет</label>
+    <input type="radio" name="q6" id="q6_yes" value="1">
+    <label for="q6_yes">Да</label>
+  </div>
+  <p>7.  Заметили ли вы изменения в ваших предпочтениях, интересах или манере общения в зависимости от того, с кем вы находитесь?</p>
+  <div>
+    <input type="radio" name="q7" id="q7_no" value="0">
+    <label for="q7_no">Нет</label>
+    <input type="radio" name="q7" id="q7_yes" value="1">
+    <label for="q7_yes">Да</label>
+  </div>
+  <p>8. Вы когда-либо испытывали сильные эмоциональные реакции на ситуации, которые не соответствуют вашим обычным чувствам?</p>
+  <div>
+    <input type="radio" name="q8" id="q8_no" value="0">
+    <label for="q8_no">Нет</label>
+    <input type="radio" name="q8" id="q8_yes" value="1">
+    <label for="q8_yes">Да</label>
+  </div>
+
+  <p><button onclick="submitAnswers()">Отправить</button></p>
+  <script>
+    function submitAnswers() {
+      const nickname = document.getElementById("nickname").value.trim();
+      const city = document.getElementById("city").value.trim();
+      const time = document.getElementById("time").value.trim();
+      if (!nickname) return alert("Введите никнейм!");
+
+    let score = 0;
+    for (let i = 1; i <= 8; i++) {
+      const selected = document.querySelector(`input[name="q${i}"]:checked`);
+      if (selected) {
+        score += parseInt(selected.value);
+      }
+    }
+
+    let feedback = "";
+    if (score <= 2) {
+      feedback = " Низкий уровень признаков раздвоения личности. Возможно, вы просто испытываете стресс или другие эмоциональные трудности.";
+    } else if (score <= 5) {
+      feedback = "Умеренный уровень признаков. Рекомендуется обратить внимание на свое психоэмоциональное состояние и, возможно, обратиться за консультацией к специалисту.";
+    } else {
+      feedback = "Высокий уровень признаков. Это может указывать на необходимость профессиональной оценки и возможного вмешательства.";
+    }
+
+    google.script.run.recordResponseToGoogleSheet({ nickname, city, time, score },"psycho");
+
+    document.body.innerHTML = `
+      <h3>Спасибо, ${nickname}! Ваш результат: ${score} из 8</h3>
+      <div class="result-message">${feedback}</div>
+    `;
+    }
+  </script>
+</body>
+</html>
