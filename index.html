@@ -6,6 +6,7 @@
   <title>Психологический тест</title>
   <link rel="icon" href="img/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="css/styles.css">
+  <script src="js/scripts.js"></script>
 </head>
 <body>
   <h1>Пройдите психологические тесты</h1>
@@ -28,10 +29,17 @@
   <a id="buttonFive" class="launch-button" href="#" target="_blank" rel="noopener noreferrer">
     На разделение личности
   </a><br>
-    <a id="buttonSix" class="launch-button" href="#" target="_blank" rel="noopener noreferrer">
+  <a id="buttonSix" class="launch-button" href="#" target="_blank" rel="noopener noreferrer">
     На паранойю 
   </a><br>
-  <br><br>
+  <a id="buttonSeven" class="launch-button" href="#" target="_blank" rel="noopener noreferrer">
+    На адекватность 
+  </a><br>  
+  <footer class = "footer-content">
+    <nav id = "footer" class="footer-nav"></nav>
+    <span id = "copyRight"></span>
+  </footer>
+
   <script>
     // Store the URL in a variable
     //const formUrl = "https://script.google.com/macros/s/AKfycbzlCDgVVAQmTGoAGw1mtPBNtkBilwOBRQkESqTrAxeadsiZS9rw1ED_yWMUiY9RpHeAaA/exec?page=";
@@ -42,20 +50,10 @@
     buttonThree.href = formUrl + "jealousy";
     buttonFour.href = formUrl + "sadism";
     buttonFive.href = formUrl + "split";
-    buttonSix.href = formUrl + "paranoia";
+    buttonSix.href = formUrl + "paranoia"; 
+    buttonSeven.href = formUrl + "adequacy";   
+    footer.innerHTML = menus.menuMaker(menus.footer);
+    copyRight.innerHTML = menus.copyRight();
   </script>
-  <footer class="modern-footer">
-    <div class="footer-content">
-      <nav class="footer-nav">
-        <a href="#">О проекте</a>
-        <a href="#">Контакты</a>
-        <a href="#">Политика конфиденциальности</a>
-        <a href="matriarchy.html">Матриархат</a>
-        <a href="glossary.html">Глоссарий</a>
-        <a href="avataristika.html">Аватаристика</a>
-      </nav>
-      <span>© 2025 Sensei — Все права защищены</span>
-    </div>
-  </footer>
 </body>
 </html>

@@ -15,4 +15,8 @@ const menus = {
     menuMaker: function(x) {
         return Object.entries(x).map(([key, value]) => `<a href="${value}">${key}</a>`).join(" | ");
     },
+    copyRight: function() {
+        const year = new Date().getFullYear();
+        return `© ${year} Sensei - Психологические тесты. Все права защищены.`;
+    }
 }
