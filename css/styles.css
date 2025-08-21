@@ -10,6 +10,21 @@ body {
   height: 100vh;
   color: #2c3e50;
 }
+header {
+  position: relative;
+  top: 20px;
+  font-size: 1.5rem;
+  color: #fff;
+  text-align: center;
+}
+header a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 15px;
+}
+header a:hover {
+  text-decoration: underline;
+}
 
 h1 {
   font-size: 2.5rem;
