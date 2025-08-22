@@ -26,6 +26,10 @@
   <div class="button-card"><a id="buttonSix" href="#" target="_blank" rel="noopener noreferrer">Паранойя</a></div>
   <div class="button-card"><a id="buttonSeven" href="#" target="_blank" rel="noopener noreferrer">Адекватность</a></div>
   <div class="button-card"><a id="buttonEight" href="#" target="_blank" rel="noopener noreferrer">Сверхъестественное</a></div>
+  <div class="button-card"><a id="buttonNine" href="#" target="_blank" rel="noopener noreferrer">Пси Возраст</a></div>
+  <div class="button-card"><a id="buttonTen" href="#" target="_blank" rel="noopener noreferrer">Логика</a></div>
+  <div class="button-card"><a id="buttonEleven" href="#" target="_blank" rel="noopener noreferrer">Эмоциональный Интеллект</a></div>
+  <div class="button-card"><a id="buttonTwelve" href="#" target="_blank" rel="noopener noreferrer">Аддикция</a></div> 
 </div>
   <footer class = "footer-content">
     <nav id = "footer" class="footer-nav"></nav>
@@ -35,7 +39,7 @@
   <script>
     // Store the URL in a variable
     //const formUrl = "https://script.google.com/macros/s/AKfycbzlCDgVVAQmTGoAGw1mtPBNtkBilwOBRQkESqTrAxeadsiZS9rw1ED_yWMUiY9RpHeAaA/exec?page=";
-    const formUrl = "https://script.google.com/macros/s/AKfycbwt49bAZKnjq4XaJuuRi-vRVNWZlOAFwHpDdlbaYxNz50CO_5lAqmGt3Z92No1r6F7vRQ/exec?page=";
+    const formUrl = "https://script.google.com/macros/s/AKfycbxcXqrOBvuqBBCjveNAkPokgADmx3Kbf52qW_xsbeU6e2cV8VcaSuPts1HCLQSY3e-gSw/exec?page=";
     // Assign it to the href dynamically
     buttonOne.href = formUrl + "form"; // document.getElementById("buttonOne").href = formUrl + "form";
     buttonTwo.href = formUrl + "psycho";
@@ -45,6 +49,10 @@
     buttonSix.href = formUrl + "paranoia"; 
     buttonSeven.href = formUrl + "adequacy"; 
     buttonEight.href = formUrl + "supernatural";
+    buttonNine.href = formUrl + "psychage";
+    buttonTen.href = formUrl + "logics";
+    buttonEleven.href = formUrl + "ei";
+    buttonTwelve.href = formUrl + "addiction";
     header.innerHTML = menus.menuMaker(menus.header);  
     footer.innerHTML = menus.menuMaker(menus.footer);
     copyRight.innerHTML = menus.copyRight();
