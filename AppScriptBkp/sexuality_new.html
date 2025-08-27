@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Тест на сексуальность</title>
+    <?!= include('stylesheet'); ?>
+</head>
+<body>
+  <h2>Введите Ваш ник из чата:</h2>
+  <input type="text" id="nickname" placeholder="Ваш ник чатланин..." />
+  
+  <h2>Город (необязательно):</h2>
+  <input type="text" id="city" placeholder="Введите Ваш город..." />
+
+  <h2>Время в чате (необязательно):</h2>
+  <input type="text" id="time" placeholder="Сколько вы уже в чате?" />
+
+  <p>Инструкция: Ответьте на вопросы честно, выбирая один из вариантов ответа: "Да" или "Нет".</p>
+  
+  <div id="questions">
+    <form id="sexualityTest">
+        <p>1. Чувствуете ли вы влечение к людям противоположного пола?</p>
+        <div>
+            <input type="radio" name="q1" id="q1_no" value="0">
+            <label for="q1_no">Нет</label>
+            <input type="radio" name="q1" id="q1_yes" value="1">
+            <label for="q1_yes">Да</label>
+        </div>
+        <p>2. Чувствуете ли вы влечение к людям своего пола?</p>
+        <div>
+            <input type="radio" name="q2" id="q2_no" value="0">
+            <label for="q2_no">Нет</label>
+            <input type="radio" name="q2" id="q2_yes" value="1">
+            <label for="q2_yes">Да</label>
+        </div>
+        <p>3. Чувствуете ли вы влечение к людям обоих полов?</p>
+        <div>
+            <input type="radio" name="q3" id="q3_no" value="0">
+            <label for="q3_no">Нет</label>
+            <input type="radio" name="q3" id="q3_yes" value="1">
+            <label for="q3_yes">Да</label>
+        </div>
+        <p>4. Можете ли вы сказать, что вы асексуальны (не чувствуете влечения ни к кому)?</p>
+        <div>
+            <input type="radio" name="q4" id="q4_no" value="0">
+            <label for="q4_no">Нет</label>
+            <input type="radio" name="q4" id="q4_yes" value="1">
+            <label for="q4_yes">Да</label>
+        </div>
+        <p>5. Были ли у вас романтические или сексуальные отношения с человеком противоположного пола?</p>
+        <div>
+            <input type="radio" name="q5" id="q5_no" value="0">
+            <label for="q5_no">Нет</label>
+            <input type="radio" name="q5" id="q5_yes" value="1">
+            <label for="q5_yes">Да</label>
+        </div>
+        <p>6. Были ли у вас романтические или сексуальные отношения с человеком своего пола?</p>
+        <div>
+            <input type="radio" name="q6" id="q6_no" value="0">
+            <label for="q6_no">Нет</label>
+            <input type="radio" name="q6" id="q6_yes" value="1">
+            <label for="q6_yes">Да</label>
+        </div>
+        <p>7. Чувствуете ли вы, что ваша сексуальная ориентация флюидна (изменчива)?</p>
+        <div>
+            <input type="radio" name="q7" id="q7_no" value="0">
+            <label for="q7_no">Нет</label>
+            <input type="radio" name="q7" id="q7_yes" value="1">
+            <label for="q7_yes">Да</label>
+        </div>
+        <p>8. Испытываете ли вы трудности с определением своей сексуальной ориентации?</p>
+        <div>
+            <input type="radio" name="q8" id="q8_no" value="0">
+            <label for="q8_no">Нет</label>
+            <input type="radio" name="q8" id="q8_yes" value="1">
+            <label for="q8_yes">Да</label>
+        </div>
+    </form>
+   </div>
+    <p><button onclick="submitAnswers()">Отправить</button></p>
+    <script>
+        function submitAnswers() {
+        const nickname = document.getElementById("nickname").value.trim();
+        const city = document.getElementById("city").value.trim();
+        const time = document.getElementById("time").value.trim();
+        if (!nickname) return alert("Введите никнейм!");
+
+        let answers = []; // used to store answers
+
+        // Collect answers        
+        for (let i = 1; i <= 8; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            answers.push(selected ? selected.value : null);
+        }
+
+        // Process results
+        let result = '';
+
+        if (answers[3] === '1') {
+            result = 'Вы можете идентифицировать себя как асексуальная/асексуальный.';
+        } else if (answers[0] === '1' && answers[4] === '1') {
+            result = 'Вы можете идентифицировать себя как гетеросексуальная/гетеросексуальный.';
+        } else if (answers[1] === '1' && answers[5] === '1') {
+            result = 'Вы можете идентифицировать себя как гомосексуальная/гомосексуальный.';
+        } else if (answers[0] === '1' && answers[1] === '1' && answers[2] === '1' && answers[4] === '1' && answers[5] === '1') {
+            result = 'Вы можете идентифицировать себя как би/пансексуальная/би/пансексуальный.';
+        } else {
+            result = 'Ваша сексуальная ориентация не определена по данным ответам.';
+        }
+
+        const formattedAnswers = answers
+            .map((val, idx) => `${idx + 1}: ${val === 1 ? "Yes" : "No"}`)
+            .join(", ");
+         console.log('Answers:', formattedAnswers.toString()); // Log answers array to console
+       // google.script.run.recordResponseToGoogleSheet({ nickname, city, time, formattedAnswers }, "sexuality");
+
+        document.body.innerHTML = `
+            <h3>Спасибо, ${nickname}!</h3>
+            <div class="result-message">${result}</div>
+        `;    
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logics</title>
+  <?!= include('stylesheet'); ?>
+</head>
+<body>
+  <h2>Введите Ваш ник из чата:</h2>
+  <input type="text" id="nickname" placeholder="Ваш ник чатланин..." />
+  
+  <h2>Город (необязательно):</h2>
+  <input type="text" id="city" placeholder="Введите Ваш город..." />
+
+  <h2>Время в чате (необязательно):</h2>
+  <input type="text" id="time" placeholder="Сколько вы уже в чате?" />
+
+  <div id="questions">
+  <p>1. Если все кошки - млекопитающие, и все млекопитающие - животные, то все кошки - животные?</p>
+  <div>
+    <input type="radio" name="q1" id="q1_no" value="0">
+    <label for="q1_no">Нет</label>
+    <input type="radio" name="q1" id="q1_yes" value="1">
+    <label for="q1_yes">Да</label>
+  </div>
+  <p>2. Если А > Б и Б > В, то А > В?</p>
+  <div>
+    <input type="radio" name="q2" id="q2_no" value="0">
+    <label for="q2_no">Нет</label>
+    <input type="radio" name="q2" id="q2_yes" value="1">
+    <label for="q2_yes">Да</label>
+  </div>
+  <p>3. Если каждый второй день недели - выходной, и сегодня - не выходной, то завтра - выходной?</p>
+  <div>
+    <input type="radio" name="q3" id="q3_no" value="0">
+    <label for="q3_no">Нет</label>
+    <input type="radio" name="q3" id="q3_yes" value="1">
+    <label for="q3_yes">Да</label>
+  </div>
+  <p>4. Если все птицы умеют летать, и пингвин - птица, то пингвин умеет летать?</p>
+  <div>
+    <input type="radio" name="q4" id="q4_no" value="0">
+    <label for="q4_no">Нет</label>
+    <input type="radio" name="q4" id="q4_yes" value="1">
+    <label for="q4_yes">Да</label>
+  </div>
+  <p>5. Если А = Б и Б = С, то А = С?</p>
+  <div>
+    <input type="radio" name="q5" id="q5_no" value="0">
+    <label for="q5_no">Нет</label>
+    <input type="radio" name="q5" id="q5_yes" value="1">
+    <label for="q5_yes">Да</label>
+  </div>
+  <p>6. Если каждый человек имеет одну мать, и у меня есть мать, то у моей матери тоже есть мать?</p>
+  <div>
+    <input type="radio" name="q6" id="q6_no" value="0">
+    <label for="q6_no">Нет</label>
+    <input type="radio" name="q6" id="q6_yes" value="1">
+    <label for="q6_yes">Да</label>
+  </div>
+  <p>7. Если все числа, кратные 4, также кратны 2, и 12 кратно 4, то 12 кратно 2?</p>
+  <div>
+    <input type="radio" name="q7" id="q7_no" value="0">
+    <label for="q7_no">Нет</label>
+    <input type="radio" name="q7" id="q7_yes" value="1">
+    <label for="q7_yes">Да</label>
+  </div>
+  <p>8. Если каждый город имеет одну столицу, и Москва - столица России, то каждый город в России имеет Москву в качестве столицы?</p>
+  <div>
+    <input type="radio" name="q8" id="q8_no" value="0">
+    <label for="q8_no">Нет</label>
+    <input type="radio" name="q8" id="q8_yes" value="1">
+    <label for="q8_yes">Да</label>
+  </div>
+  <p><button onclick="submitAnswers()">Отправить</button></p>
+  <script>
+    function submitAnswers() {
+      const nickname = document.getElementById("nickname").value.trim();
+      const city = document.getElementById("city").value.trim();
+      const time = document.getElementById("time").value.trim();
+      if (!nickname) return alert("Введите никнейм!");
+
+    let answers = []; //declare empty array to store answers
+
+    let score = 0;
+    for (let i = 1; i <= 8; i++) {
+      const selected = document.querySelector(`input[name="q${i}"]:checked`);
+      answers.push(selected ? selected.value : null);
+      if (selected) {
+        score += parseInt(selected.value);
+      }
+    }
+
+    let feedback = "";
+    if (score <= 2) {
+      feedback = "Вы демонстрируете низкий уровень логического мышления.";
+    } else if (score <= 5) {
+      feedback = "Вы демонстрируете средний уровень логического мышления.";
+    } else {
+      feedback = "Вы демонстрируете высокий уровень логического мышления.";
+    }
+
+    const formattedAnswers = answers
+    .map((val, idx) => `${idx + 1}: ${val === 1 ? "Yes" : "No"}`)
+    .join(", ");
+    console.log('Answers:', formattedAnswers.toString()); // Log answers array to console
+    //google.script.run.recordResponseToGoogleSheet({ nickname, city, time, score, formattedAnswers }, "logics");
+
+    document.body.innerHTML = `
+      <h3>Спасибо, ${nickname}! Ваш результат: ${score} из 8</h3>
+      <div class="result-message">${feedback}</div>
+    `;
+    }
+  </script>
+</body>
+</html>
